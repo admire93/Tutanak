@@ -2,54 +2,54 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @user = User.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
+      format.xml  { render :xml => @user }
     end
   end
 
   # GET /users/1
   # GET /users/1.xml
   def show
-    @users = User.find(params[:id])
+    @user = User.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @users }
+      format.xml  { render :xml => @user }
     end
   end
 
   # GET /users/new
   # GET /users/new.xml
   def new
-    @users = User.new
+    @user = User.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @users }
+      format.xml  { render :xml => @user }
     end
   end
 
   # GET /users/1/edit
   def edit
-    @users = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   # POST /users
   # POST /users.xml
   def create
-    @users = User.new(params[:user])
+    @user = User.new(params[:user])
 
     respond_to do |format|
-      if @users.save
+      if @user.save
         flash[:notice] = 'Users was successfully created.'
-        format.html { redirect_to(@users) }
-        format.xml  { render :xml => @users, :status => :created, :location => @users }
+        format.html { redirect_to(@user) }
+        format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @users.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,13 +60,13 @@ class UsersController < ApplicationController
     @users = User.find(params[:id])
 
     respond_to do |format|
-      if @users.update_attributes(params[:user])
+      if @user.update_attributes(params[:user])
         flash[:notice] = 'Users was successfully updated.'
-        format.html { redirect_to(@users) }
+        format.html { redirect_to(@user) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @users.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -74,8 +74,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @users = Users.find(params[:id])
-    @users.destroy
+    @user = Users.find(params[:id])
+    @user.destroy
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
