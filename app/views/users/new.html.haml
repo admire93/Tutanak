@@ -1,6 +1,7 @@
 %h2 New User 
 
 - form_for(@user) do |f|
+  = f.error_messages
   %dl
     %dt= f.label :email
     %dd= f.text_field :email
