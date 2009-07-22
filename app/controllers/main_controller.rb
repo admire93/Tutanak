@@ -21,6 +21,7 @@ class MainController < ApplicationController
 					redirect_to :controller => 'users', :action => 'show'
 				else
 					flash[:notice] = 'invalid user'
+					redirect_to :action => 'login'
 				end
 		  end
 	  end

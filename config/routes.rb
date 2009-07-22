@@ -2,7 +2,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :users, :has_many => [:comments, :diaries, :teams] 
   map.resources :comment
   map.resources :diaries, :has_many => :comments
-  map.resources :teams, :has_many => [:users, :diaries]
+  map.resources :teams, :has_many => :diaries,
+												:member => { :search => :get }
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

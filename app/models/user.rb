@@ -25,13 +25,22 @@ class User < ActiveRecord::Base
 		PasswordHash.new(email, password_hash)
 	end
   def self.find_user_by_email(email)
-		User.find(:all, :conditions => {:email => email})[0]
+		user = User.find(:all, :conditions => {:email => email})[0]
+		if user
+			user
+		else
+			false
+		end
 	end
 	def self.is_can_login?(email,password)
-		user = User.find_user_by_email(email)
-		password_hash = user.password_hash
+	  user = User.find_user_by_email(email)
+		password_hash = if user	
+										  user.password_hash
+										else
+											false
+										end
 		input_password_hash = PasswordHash.hash(email,password)
-		if password_hash == input_password_hash
+	  if password_hash == input_password_hash
 			true
 		else
 			false

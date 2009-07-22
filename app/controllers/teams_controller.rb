@@ -89,4 +89,10 @@ class TeamsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+	def search
+		teams = Team.find_by_sql "SELECT * FROM teams where alias like
+		'%#{params[:search]}%' or title like '%#{params[:search]}%'"
+		@result_search = teams
+		redirect_to :action => 'show'
+	end
 end
