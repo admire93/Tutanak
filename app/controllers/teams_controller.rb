@@ -3,7 +3,9 @@ class TeamsController < ApplicationController
   # GET /teams.xml
   def index
     @teams = Team.all
-
+		unless session[:user_id] 
+			redirect_to :controller => 'main', :action => 'login'
+		end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @teams }
@@ -13,7 +15,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.xml
   def show
-    @team = Team.find(params[:id])
+    @team = Team.find_by_alias(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,27 +27,32 @@ class TeamsController < ApplicationController
   # GET /teams/new.xml
   def new
     @team = Team.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @team }
+		if session[:user_id]
+			@session = session[:user_id]
+			respond_to do |format|
+			  format.html # new.html.erb
+			  format.xml  { render :xml => @team }
     end
+		else
+			@session = nil
+			redirect_to :controller => "main", :action => "login"
+		end
   end
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find(params[:id])
+    @team = Team.find_by_alias(params[:id])
   end
 
   # POST /teams
   # POST /teams.xml
   def create
     @team = Team.new(params[:team])
-
+		
     respond_to do |format|
       if @team.save
         flash[:notice] = 'Team was successfully created.'
-        format.html { redirect_to(@team) }
+        format.html { redirect_to :action => @team.alias }
         format.xml  { render :xml => @team, :status => :created, :location => @team }
       else
         format.html { render :action => "new" }

@@ -1,3 +1,9 @@
+%h1= @team.title
 
-= link_to 'Edit', edit_team_path(@team) |
-= link_to 'Back', teams_path
+%h2
+  = @team.description
+  Welcome to the
+  = @team.alias
+%h2 
+  Leader 's Name
+  = User.find(@team.leader_id).alias

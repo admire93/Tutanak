@@ -1,14 +1,13 @@
-%h1 Listing teams
-
-%table
- 
-- @teams.each do |team|
-  %tr
-    %td= link_to 'Show', team
-    %td= link_to 'Edit', edit_team_path(team)
-    %td= link_to 'Destroy', team, :confirm => 'Are you sure?', :method => :delete
- 
-
-%br
+%h1 Welcome Team page
+- form_tag do
+  %p
+    =text_field_tag 'search', params[:search_team]
+    =submit_tag 'Search'
 
 = link_to 'New team', new_team_path
+
+%table
+  %tr
+    %th Team Title
+    %th alias
+    %th description

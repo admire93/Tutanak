@@ -2,9 +2,16 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+	before_filter :authorize, :except => [:new,:login,:index,:create]
+	session :session_key => '_session_id'
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  def authorize
+		unless User.find_by_id(session[:user_id])
+			redirect_to :controller => 'main', :action => 'login'
+		end
+	end
 end

@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-	map.resources :users
-  map.resources :comments
-  map.resources :diaries
-  map.resources :teams
-
+	map.resources :users, :has_many => [:comments, :diaries, :teams] 
+  map.resources :comment
+  map.resources :diaries, :has_many => :comments
+  map.resources :teams, :has_many => [:users, :diaries]
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -45,4 +44,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+	map.connect '/', :controller => 'main'
 end

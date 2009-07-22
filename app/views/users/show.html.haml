@@ -1,11 +1,4 @@
-%dl
-  %dt Email
-  %dd&= @user.email
-  
-  %dt alias
-  %dd&= @user.alias
-  
-  %dt url
-  %dd&= @user.url
-= link_to 'Edit', edit_user_path(@user) |
-= link_to 'Back', user_path 
+%h1 Hello #{@user.alias}
+
+%a(href="/teams") Join Now
+
