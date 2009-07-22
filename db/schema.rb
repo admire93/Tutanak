@@ -46,12 +46,6 @@ ActiveRecord::Schema.define(:version => 20090721133339) do
     t.integer  "leader_id"
   end
 
-  create_table "teams_users", :id => false, :force => true do |t|
-    t.integer "team_id"
-    t.integer "user_id"
-    t.integer "offset"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",         :null => false
     t.string   "password_hash", :null => false
