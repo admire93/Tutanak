@@ -1,0 +1,12 @@
+%h1 search 
+- form_tag '/teams/search' do
+  %p
+    =text_field_tag 'search', params[:search]  
+    =submit_tag 'Search'
+- unless @teams.nil?
+  - for team in @teams
+    %h1
+      %a(href="/teams/#{team.alias}")= team.title
+- else
+  %p
+    You shd search other thing !

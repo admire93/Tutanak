@@ -1,13 +1,23 @@
 %h1 Welcome Team page
-- form_tag do
+- form_tag '/teams/search' do
   %p
-    =text_field_tag 'search', params[:search_team]
+    =text_field_tag 'search', params[:search]  
     =submit_tag 'Search'
 
 = link_to 'New team', new_team_path
 
-%table
-  %tr
-    %th Team Title
-    %th alias
-    %th description
+%p
+  = @result_search.inspect
+/- unless @result_search.nil?
+/  %table
+/    %tr
+/      %th Team Title
+/      %th alias
+/      %th description
+/  - for team in @result_search 
+/    %tr
+/      %td= team.title
+/      %td= team.alias
+/      %td= team.description
+/- else
+/  %h2 Hello Search Any Teams title or alias 

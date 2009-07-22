@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
+	@a = 3
   def index
     @teams = Team.all
 		unless session[:user_id] 
@@ -90,9 +91,7 @@ class TeamsController < ApplicationController
     end
   end
 	def search
-		teams = Team.find_by_sql "SELECT * FROM teams where alias like
+		@teams = Team.find_by_sql "SELECT * FROM teams where alias like
 		'%#{params[:search]}%' or title like '%#{params[:search]}%'"
-		@result_search = teams
-		redirect_to :action => 'show'
 	end
 end
