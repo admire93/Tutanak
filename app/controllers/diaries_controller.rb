@@ -25,7 +25,7 @@ class DiariesController < ApplicationController
   # GET /diaries/new.xml
   def new
     @diary = Diary.new
-
+		@id = Team.find_by_alias(@_params['id']).id		
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @diary }

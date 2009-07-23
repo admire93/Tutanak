@@ -3,7 +3,6 @@
 
 class ApplicationController < ActionController::Base
 	before_filter :authorize, :except => [:new,:login,:index,:create]
-	session :session_key => '_session_id'
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 

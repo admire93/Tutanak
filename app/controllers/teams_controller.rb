@@ -17,7 +17,11 @@ class TeamsController < ApplicationController
   # GET /teams/1.xml
   def show
     @team = Team.find_by_alias(params[:id])
-
+		team_id = Team.find_by_alias(@_params['id']).id
+		@diary_write_in_team = Diary.find(:all, 
+																			:conditions => 
+																			  {:team_id => team_id}
+																		 )
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @team }

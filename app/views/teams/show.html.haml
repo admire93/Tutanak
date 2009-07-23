@@ -7,3 +7,16 @@
 %h2 
   Leader 's Name
   = User.find(@team.leader_id).alias
+
+%a(href="/diaries/new/#{@team.alias}") write
+
+- for diary in @diary_write_in_team
+  %p
+    %h2
+      Written by :
+      = User.find(diary.user_id).alias
+    %p
+      = diary.body
+    %p#when
+      = diary.created_at
+
