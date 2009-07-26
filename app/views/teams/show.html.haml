@@ -14,9 +14,9 @@
     %p
       %h2
         Written by :
-        = User.find(diary.user_id).alias
+        &= User.find(diary.user_id).alias
       %p
-        = diary.body
+        &= diary.body
       %p#when
         = diary.created_at
 
