@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
-	@a = 3
   def index
     @teams = Team.all
 		unless session[:user_id] 
@@ -17,10 +16,11 @@ class TeamsController < ApplicationController
   # GET /teams/1.xml
   def show
     @team = Team.find_by_alias(params[:id])
-		team_id = Team.find_by_alias(@_params['id']).id
-		@diary_write_in_team = Diary.find(:all, 
+    session[:team_id] = @team.id
+    @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
+	  @diary_write_in_team = Diary.find(:all, 
 																			:conditions => 
-																			  {:team_id => team_id}
+																			  {:team_id => @team.id}
 																		 )
     respond_to do |format|
       format.html # show.html.erb
@@ -53,12 +53,19 @@ class TeamsController < ApplicationController
   # POST /teams.xml
   def create
     @team = Team.new(params[:team])
-		
+		@teams_user = TeamsUser.new   
+    
+    @teams_user.user_id = session[:user_id]
     respond_to do |format|
-      if @team.save
-        flash[:notice] = 'Team was successfully created.'
-        format.html { redirect_to :action => @team.alias }
-        format.xml  { render :xml => @team, :status => :created, :location => @team }
+      if @team.save 
+        @teams_user.team_id = @team.id
+        if @teams_user.save
+          flash[:notice] = 'Team was successfully created.'
+          format.html { redirect_to :action => @team.alias }
+          format.xml  { render :xml => @team, :status => :created, 
+                               :location => @team 
+                      }
+        end
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @team.errors, :status => :unprocessable_entity }

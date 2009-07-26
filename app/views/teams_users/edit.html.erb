@@ -1,0 +1,20 @@
+<h1>Editing teams_user</h1>
+
+<% form_for(@teams_user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :team_id %><br />
+    <%= f.text_field :team_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @teams_user %> |
+<%= link_to 'Back', teams_users_path %>

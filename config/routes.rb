@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :teams_users
+
 	map.resources :users, :has_many => [:comments, :diaries, :teams] 
   map.resources :comment
   map.resources :diaries, :has_many => :comments

@@ -25,7 +25,7 @@ class DiariesController < ApplicationController
   # GET /diaries/new.xml
   def new
     @diary = Diary.new
-		@id = Team.find_by_alias(@_params['id']).id		
+    @env = request.env.inspect
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @diary }
@@ -41,7 +41,8 @@ class DiariesController < ApplicationController
   # POST /diaries.xml
   def create
     @diary = Diary.new(params[:diary])
-
+    @diary.user_id = session[:user_id]
+    @diary.team_id = session[:team_id]
     respond_to do |format|
       if @diary.save
         flash[:notice] = 'Diary was successfully created.'

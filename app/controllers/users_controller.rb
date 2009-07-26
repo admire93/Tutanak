@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @user = User.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @user }
@@ -13,7 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find_by_alias(User.find(session[:user_id]).alias)
+    @user = User.find_by_id(session[:user_id])
+    @teams_user_join = User.find_by_id(session[:user_id]).team 
 	  respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }

@@ -1,5 +1,17 @@
-%h1 Hello #{@user.alias}
+%p#user_info
+  %h2
+  Alias :
+  = @user.alias 
+  & [
+  = @user.email
+  & ]
+- unless @user.team.empty?
+  %h2 My Team list 
+  - for team in @teams_user_join
+    %ul
+      %li
+        %a.team_alias(href="/teams/#{team.alias}")
+          = team.alias
 
-
-%a(href="/teams") Join Now
-
+%span#search
+  = link_to 'Search team', '/teams' 

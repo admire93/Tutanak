@@ -11,8 +11,6 @@
   %p
     = f.label 'alias'
     = f.text_field 'alias'
-  %p
-    %input(type="hidden" name="team[leader_id]" value="#{@session}")
   %p 
     = f.submit 'Create'
 = link_to 'Back', teams_path

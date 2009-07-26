@@ -3,7 +3,7 @@ require 'sha1'
 class User < ActiveRecord::Base
 	has_many :diaries
 	has_many :comments
-	has_many :teams, :foreign_key => :leader_id
+  has_and_belongs_to_many :team
 	validates_presence_of :email
 	validates_uniqueness_of :email
 	validates_presence_of :password

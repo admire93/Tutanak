@@ -1,9 +1,11 @@
 %h1 Register
 
-- for user in @user
-  %ul
-    %li&= user.email
-    %li&= user.password_hash
-
-=link_to 'Register', new_user_path 
-
+/- for user in @user
+/  %h2= user.email
+/  %h2= user.alias
+/
+/%h2 내가 가입한 TEAM!!
+/- for team in @teams_user_join
+/  %p
+/    %a.team_alias(href="/teams/#{team.alias}")
+/      = team.alias:tabn
