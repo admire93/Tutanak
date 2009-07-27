@@ -1,0 +1,10 @@
+!!! 1.0 Strict
+%html
+  %head
+    %meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    %title  Main : #{controller.action_name}
+    = stylesheet_link_tag 'scaffold'
+  %body
+    %p(style="color: green") 
+      = flash[:notice]
+    = yield
