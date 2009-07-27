@@ -10,6 +10,18 @@
       = submit_tag 'Join'
 - else
   %a{:href => new_diary_path} write
+<<<<<<< HEAD:app/views/teams/show.html.haml
+=======
+  - for diary in @diary_write_in_team
+    %p
+      %h2
+        Written by :
+        &= User.find(diary.user_id).alias
+      %p
+        &= diary.body
+      %p#when
+        = diary.created_at
+>>>>>>> 37f62ed19322b6adb81c4f0464b404c17bd7fba8:app/views/teams/show.html.haml
 
   %ul
   - for user in @team.user

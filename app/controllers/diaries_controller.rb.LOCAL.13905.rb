@@ -50,19 +50,13 @@ class DiariesController < ApplicationController
     @diary = Diary.new(params[:diary])
     @diary.user_id = session[:user_id]
     @diary.team_id = session[:team_id]
-		@team = Team.find_by_id(session[:team_id])
     respond_to do |format|
       if @diary.save
         flash[:notice] = 'Diary was successfully created.'
-<<<<<<< HEAD:app/controllers/diaries_controller.rb
         format.html { redirect_to :controller => 'users',
                                   :action => @diary.user.alias,
                                   :id => '@'
                     }
-=======
-        format.html { redirect_to :controller => 'teams', 
-				                          :action => @team.alias }
->>>>>>> 37f62ed19322b6adb81c4f0464b404c17bd7fba8:app/controllers/diaries_controller.rb
         format.xml  { render :xml => @diary, :status => :created, :location => @diary }
       else
         format.html { render :action => "new" }
