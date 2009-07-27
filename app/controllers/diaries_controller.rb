@@ -2,7 +2,8 @@ class DiariesController < ApplicationController
   # GET /diaries
   # GET /diaries.xml
   def index
-    @diaries = Diary.all
+    @diaries = User.find_by_alias(params[:user_id])
+    @diaries = @diaries.diaries.find(:all, :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +14,14 @@ class DiariesController < ApplicationController
   # GET /diaries/1
   # GET /diaries/1.xml
   def show
-    @diary = Diary.find(params[:id])
-
+    if @team = Team.find_by_alias(params[:id])
+      @diaries = @team.user.find_by_alias(params[:user_id]).diaries
+      @diaries = @diaries.find(:all, :conditions => {:team_id => @team.id},
+                              :order => 'created_at DESC')
+    else
+      flash[:notice] = 'You type wrong team name' 
+      @diaries = '' 
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @diary }
@@ -46,7 +53,10 @@ class DiariesController < ApplicationController
     respond_to do |format|
       if @diary.save
         flash[:notice] = 'Diary was successfully created.'
-        format.html { redirect_to(@diary) }
+        format.html { redirect_to :controller => 'users',
+                                  :action => @diary.user.alias,
+                                  :id => '@'
+                    }
         format.xml  { render :xml => @diary, :status => :created, :location => @diary }
       else
         format.html { render :action => "new" }

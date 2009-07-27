@@ -12,8 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find_by_id(session[:user_id])
-    @teams_user_join = User.find_by_id(session[:user_id]).team 
+    @user = User.find_by_alias(params[:id])
 	  respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }

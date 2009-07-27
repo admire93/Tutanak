@@ -6,12 +6,22 @@
   = @user.email
   & ]
 - unless @user.team.empty?
-  %h2 My Team list 
-  - for team in @teams_user_join
-    %ul
-      %li
-        %a.team_alias(href="/teams/#{team.alias}")
-          = team.alias
+  %h2#teams&= 'My Team list #It shd change in <a href="teams/asdf">adf</a>' 
+  %ul
+  - for team in @user.team 
+    %li
+      %a.team_alias(href="/teams/#{team.alias}")
+        = team.alias
 
-%span#search
+%h2#diaries&= 'My Diary list #It shd change in <a href="teams/asdf">adf</a>'
+- unless @user.diaries
+  - for diary in @user.diary
+    %p.diaries
+      = diary.body
+      %span.where
+        = diary.team.alias
+- else
+  %p.notice
+    You don't write any diary!
+%p#search
   = link_to 'Search team', '/teams' 

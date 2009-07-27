@@ -1,7 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :teams_users
 
-	map.resources :users, :has_many => [:comments, :diaries, :teams] 
+	map.resources :users do |user|
+    user.resources :comments
+    user.resources :diaries, :as => '@'
+    user.resources :teams
+  end  
   map.resources :comment
   map.resources :diaries, :has_many => :comments
   map.resources :teams, :has_many => :diaries,

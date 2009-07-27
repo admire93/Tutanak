@@ -18,7 +18,8 @@ class MainController < ApplicationController
 				user_can_login = User.is_can_login? params[:email], params[:password]
 				if user_can_login
 					session[:user_id] = User.find_id_by_email(params[:email])
-					redirect_to :controller => 'users', :action => 'show'
+          user_alias = User.find_by_id(session[:user_id]).alias
+					redirect_to :controller => 'users', :action => user_alias 
 				else
 					flash[:notice] = 'invalid user'
 					redirect_to :action => 'login'
