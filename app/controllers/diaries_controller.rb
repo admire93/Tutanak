@@ -54,15 +54,10 @@ class DiariesController < ApplicationController
     respond_to do |format|
       if @diary.save
         flash[:notice] = 'Diary was successfully created.'
-<<<<<<< HEAD:app/controllers/diaries_controller.rb
         format.html { redirect_to :controller => 'users',
                                   :action => @diary.user.alias,
                                   :id => '@'
                     }
-=======
-        format.html { redirect_to :controller => 'teams', 
-				                          :action => @team.alias }
->>>>>>> 37f62ed19322b6adb81c4f0464b404c17bd7fba8:app/controllers/diaries_controller.rb
         format.xml  { render :xml => @diary, :status => :created, :location => @diary }
       else
         format.html { render :action => "new" }
