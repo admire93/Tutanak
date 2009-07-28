@@ -3,6 +3,7 @@ class CreateTeamsUsers < ActiveRecord::Migration
     create_table :teams_users, :id => false do |t|
       t.integer :team_id, :null => false
       t.integer :user_id, :null => false
+      t.timestamp :created_at
     end
   end
 

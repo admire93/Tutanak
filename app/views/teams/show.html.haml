@@ -4,27 +4,19 @@
   = @team.description
   Welcome to the
   = @team.alias
-- unless @is_joined
-  %h2
+
+- case (@is_joined[0])
+
+  - when false:
     - form_tag '/teams_users' do
       = submit_tag 'Join'
-- else
-  %a{:href => new_diary_path} write
-<<<<<<< HEAD:app/views/teams/show.html.haml
-=======
-  - for diary in @diary_write_in_team
-    %p
-      %h2
-        Written by :
-        &= User.find(diary.user_id).alias
-      %p
-        &= diary.body
-      %p#when
-        = diary.created_at
->>>>>>> 37f62ed19322b6adb81c4f0464b404c17bd7fba8:app/views/teams/show.html.haml
 
-  %ul
-  - for user in @team.user
-    %li.user
-      %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
-        = user.alias
+  - when true:
+    %a{:href => new_diary_path} write
+    %ul
+    - for user in @team.user
+      %li.user
+        %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
+          = user.alias
+    - if @is_joined[1] == 'administrator'
+      %a{:href => '/teams/'+@team.alias+'/preference'} preference 

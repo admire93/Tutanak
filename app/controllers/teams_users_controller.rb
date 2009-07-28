@@ -43,13 +43,16 @@ class TeamsUsersController < ApplicationController
     @teams_user = TeamsUser.new(params[:teams_user])
     @teams_user.team_id = session[:team_id]
     @teams_user.user_id = session[:user_id]
+    @teams_user.status = false
     @team = Team.find_by_id(session[:team_id])
-    if Team.is_user_join? session[:user_id], session[:team_id] 
-
+    @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
+    if @is_joined[0]
+      flash[:notice] = 'you already join this team'
+      redirect_to :controller => 'teams', :action => @team.alias
     else
       respond_to do |format|
         if @teams_user.save
-          flash[:notice] = '#{User.find_by_id(session[:user_id]).alias}'
+          flash[:notice] = User.find_by_id(session[:user_id]).alias
           flash[:notice] += ' successfully joined'
           format.html { redirect_to(:controller => 'teams', 
                                     :action => @team.alias)}

@@ -18,11 +18,7 @@ class TeamsController < ApplicationController
     @team = Team.find_by_alias(params[:id])
     session[:team_id] = @team.id
     @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
-	  @diary_write_in_team = Diary.find(:all, 
-																			:conditions => 
-																			  {:team_id => @team.id}
-																		 )
-    respond_to do |format|
+	  respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @team }
     end
@@ -56,6 +52,7 @@ class TeamsController < ApplicationController
 		@teams_user = TeamsUser.new   
     
     @teams_user.user_id = session[:user_id]
+    @teams_user.status = true
     respond_to do |format|
       if @team.save 
         @teams_user.team_id = @team.id
