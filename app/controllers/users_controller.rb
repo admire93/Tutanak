@@ -43,15 +43,27 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-
     respond_to do |format|
-      if @user.save
-				session[:user_id] = @user.id
-        format.html { redirect_to :action => @user.alias }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
+      if verify_recaptcha(@user)
+        if @user.save
+          session[:user_id] = @user.id
+          format.html { redirect_to :action => @user.alias }
+          format.xml  { render :xml => @user, :status => :created, 
+                               :location => @user 
+                      }
+        else
+          flash[:notice] = 'faild access'
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @user.errors, 
+                               :status => :unprocessable_entity
+                      }
+        end
       else
+        flash[:notice] = 'There was an error with the recaptcha'
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @user.errors, 
+                             :status => :unprocessable_entity 
+                    }
       end
     end
   end
