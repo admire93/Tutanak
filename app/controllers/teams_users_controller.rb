@@ -43,7 +43,7 @@ class TeamsUsersController < ApplicationController
     @teams_user = TeamsUser.new(params[:teams_user])
     @teams_user.team_id = session[:team_id]
     @teams_user.user_id = session[:user_id]
-    @teams_user.status = false
+    @teams_user.status = 3 
     @team = Team.find_by_id(session[:team_id])
     @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
     if @is_joined[0]
@@ -71,7 +71,7 @@ class TeamsUsersController < ApplicationController
   # PUT /teams_users/1.xml
   def update
     @teams_user = TeamsUser.find(params[:id])
-
+		@teams_user.status = 2 
     respond_to do |format|
       if @teams_user.update_attributes(params[:teams_user])
         flash[:notice] = 'TeamsUser successfully updated'

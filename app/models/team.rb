@@ -15,13 +15,11 @@ class Team < ActiveRecord::Base
     for user in users
       if user.id == user_id
         is_join << true
-        if status 
-          is_join << 'administrator'
-        elsif status.nil?
-          exit
-        else
-          is_join << 'member'
-        end
+				case (status)
+				  when 1: is_join << 'administrator'
+					when 2: is_join << 'member'
+					when 3: is_join << 'reservation'
+				end
         break
       end
     end

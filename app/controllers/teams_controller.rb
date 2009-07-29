@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
 		@teams_user = TeamsUser.new   
     
     @teams_user.user_id = session[:user_id]
-    @teams_user.status = true
+    @teams_user.status = 1 
     respond_to do |format|
       if @team.save 
         @teams_user.team_id = @team.id
@@ -102,4 +102,12 @@ class TeamsController < ApplicationController
 		@teams = Team.find_by_sql "SELECT * FROM teams where alias like
 		'%#{params[:search]}%' or title like '%#{params[:search]}%'"
 	end
+  def preference
+    @teams = Team.find_by_alias(params[:id])
+    for user in  @teams.user 
+      if user.status == 3
+        @reservation_user << user
+      end
+    end 
+  end
 end

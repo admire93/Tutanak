@@ -1,6 +1,6 @@
 class AddStatusToTeamsUser < ActiveRecord::Migration
   def self.up
-    add_column :teams_users, :status, :boolean
+    add_column :teams_users, :status, :integer
   end
 
   def self.down

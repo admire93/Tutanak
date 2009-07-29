@@ -1,0 +1,12 @@
+%h1 Preference
+
+%ul
+  - unless @reservation_users.nil?
+    - for reservation_user in @reservation_users
+      %li
+        %a{:href => '/users/'+reservation_user.alias+'/@/'}
+          = reservation_user.alias
+        - form_tag edit_teams_user_path
+  - else
+    %p 가입보류중인 회원이 없습니다
+

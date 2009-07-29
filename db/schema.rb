@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20090728055728) do
     t.integer  "team_id",    :null => false
     t.integer  "user_id",    :null => false
     t.datetime "created_at"
-    t.boolean  "status"
+    t.integer  "status"
   end
 
   create_table "users", :force => true do |t|

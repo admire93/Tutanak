@@ -12,11 +12,14 @@
       = submit_tag 'Join'
 
   - when true:
-    %a{:href => new_diary_path} write
-    %ul
-    - for user in @team.user
-      %li.user
-        %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
-          = user.alias
-    - if @is_joined[1] == 'administrator'
-      %a{:href => '/teams/'+@team.alias+'/preference'} preference 
+    - unless @is_joined[1] == 'reservation'
+      %a{:href => new_diary_path} write
+      %ul
+        - for user in @team.user
+          %li
+            %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
+              = user.alias
+      - if @is_joined[1] == 'administrator'
+        %a{:href =>  '/teams/'+@team.alias+'/preference'} preference
+    - else 
+      %p 가입승인진행중
