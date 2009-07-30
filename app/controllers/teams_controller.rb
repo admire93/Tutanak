@@ -103,11 +103,13 @@ class TeamsController < ApplicationController
 		'%#{params[:search]}%' or title like '%#{params[:search]}%'"
 	end
   def preference
-    @teams = Team.find_by_alias(params[:id])
-    for user in  @teams.user 
-      if user.status == 3
-        @reservation_user << user
+    @team = Team.find_by_alias(params[:id])
+    @reservation_users = []
+    @update_path = '/teams_user/' + @team.id
+    for ruser in @team.user
+      if ruser.status.to_i == 3
+        @reservation_users << ruser
       end
-    end 
+    end
   end
 end

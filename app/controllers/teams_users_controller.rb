@@ -70,8 +70,7 @@ class TeamsUsersController < ApplicationController
   # PUT /teams_users/1
   # PUT /teams_users/1.xml
   def update
-    @teams_user = TeamsUser.find(params[:id])
-		@teams_user.status = 2 
+    @teams_user = TeamsUser.find(:all, :conditions => {:user_id =>params[:user_id], :team_id => params[:team_id]})
     respond_to do |format|
       if @teams_user.update_attributes(params[:teams_user])
         flash[:notice] = 'TeamsUser successfully updated'
