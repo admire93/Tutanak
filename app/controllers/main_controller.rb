@@ -1,9 +1,8 @@
 class MainController < ApplicationController
   def index
 		if session[:user_id]
-			@message = 'welcome to the Tutanak  '
-			@message += User.find(session[:user_id]).alias.to_s
-		else 
+		  redirect_to :controller => 'users', :action => User.find(session[:user_id]).alias
+    else 
 			redirect_to :action => 'login'
 		end
   end

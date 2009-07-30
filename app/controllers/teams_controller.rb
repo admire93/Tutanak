@@ -2,8 +2,9 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
   def index
-    @teams = Team.all
-		unless session[:user_id] 
+    @user = User.find_by_alias(params[:user_id])
+    @teams = @user.team
+    unless session[:user_id] 
 			redirect_to :controller => 'main', :action => 'login'
 		end
     respond_to do |format|
@@ -52,7 +53,6 @@ class TeamsController < ApplicationController
 		@teams_user = TeamsUser.new   
     
     @teams_user.user_id = session[:user_id]
-    @teams_user.status = 1 
     respond_to do |format|
       if @team.save 
         @teams_user.team_id = @team.id
@@ -102,14 +102,4 @@ class TeamsController < ApplicationController
 		@teams = Team.find_by_sql "SELECT * FROM teams where alias like
 		'%#{params[:search]}%' or title like '%#{params[:search]}%'"
 	end
-  def preference
-    @team = Team.find_by_alias(params[:id])
-    @reservation_users = []
-    @update_path = '/teams_user/' + @team.id
-    for ruser in @team.user
-      if ruser.status.to_i == 3
-        @reservation_users << ruser
-      end
-    end
-  end
 end

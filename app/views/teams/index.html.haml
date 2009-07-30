@@ -1,4 +1,4 @@
-%h1 Welcome Team page
+%h1 Team !! 
 - form_tag '/teams/search' do
   %p
     =text_field_tag 'search', params[:search]  
@@ -6,16 +6,10 @@
 
 = link_to 'New team', new_team_path
 
-/- unless @result_search.nil?
-/  %table
-/    %tr
-/      %th Team Title
-/      %th alias
-/      %th description
-/  - for team in @result_search 
-/    %tr
-/      %td= team.title
-/      %td= team.alias
-/      %td= team.description
-/- else
-/  %h2 Hello Search Any Teams title or alias 
+
+%ul#team_list
+  - for join_team in @teams
+    %li
+      %a{:href => '/teams/'+join_team.alias}  
+        &= join_team.alias
+

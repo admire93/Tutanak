@@ -4,22 +4,17 @@
   = @team.description
   Welcome to the
   = @team.alias
-
-- case (@is_joined[0])
-
+%a{:href => '/teams/'+@team.alias+'/@'} Team에 쓰여진 Diary 보기
+- case (@is_joined)
   - when false:
     - form_tag '/teams_users' do
       = submit_tag 'Join'
 
   - when true:
-    - unless @is_joined[1] == 'reservation'
-      %a{:href => new_diary_path} write
-      %ul
-        - for user in @team.user
-          %li
-            %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
-              = user.alias
-      - if @is_joined[1] == 'administrator'
-        %a{:href =>  '/teams/'+@team.alias+'/preference'} preference
-    - else 
-      %p 가입승인진행중
+    %a{:href => '/teams/'+@team.alias+'/@/new'} write
+    %ul
+      - for user in @team.user
+        %li
+          %a{:href => '/users/'+user.alias+'/@/'+@team.alias}
+            = user.alias
+    

@@ -1,12 +1,17 @@
-%h1 diary index
+%h1 Diaries 
 
 - unless @diaries.empty?
   - for diary in @diaries
     %p
       = diary.body
       = diary.created_at
+      %a.who{:href =>'/users/'+diary.user.alias}
+        Written by
+        = diary.user.alias
       %a.where{:href => '/teams/'+diary.team.alias}
         = 'Where => '+diary.team.alias
 - else
   %p#notice
-    Didn't have any diaries
+    쓰여진 Diary가 존재하지않습니다 
+    %a.team_search{:href => '/teams/'+@find.alias}
+      Team으로 돌아가기

@@ -4,7 +4,12 @@
     %p
       = diary.body
       = diary.created_at
+      %a.who{:href =>'users/'+diary.user.alias}
+        Written by
+        = diary.user.alias
       %a.where{:href => '/teams/'+diary.team.alias}
         = 'Where => '+diary.team.alias
 - else
-  %a{:href => new_team_path} Make your own team
+  %p 쓰여진 글이없습니다
+
+%a{:href => '/teams/'+params[:id]} team...

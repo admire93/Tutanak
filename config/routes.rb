@@ -1,17 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :teams_users
-
 	map.resources :users do |user|
-    user.resources :comments
     user.resources :diaries, :as => '@'
-    user.resources :teams
+    user.resources :teams, :as => '*'
   end  
-  map.resources :comment
-  map.resources :diaries, :has_many => :comments
-  map.resources :teams, :has_many => :diaries,
-												:member => { :search => :post,
-												             :preference => :get 
-																	 }
+  map.resources :diaries
+  map.resources :teams, :member => { :search => :post } do |team|
+    team.resources :diaries, :as => '@'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

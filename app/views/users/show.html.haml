@@ -1,27 +1,22 @@
-%p#user_info
-  %h2
-  Alias :
-  = @user.alias 
-  & [
-  = @user.email
-  & ]
-- unless @user.team.empty?
-  %h2#teams&= 'My Team list #It shd change in <a href="teams/asdf">adf</a>' 
-  %ul
-  - for team in @user.team 
-    %li
-      %a.team_alias(href="/teams/#{team.alias}")
-        = team.alias
+%h2#new_diariy_title 내가 최근에 쓴글
+%p#new_diary_body
+  - if @new_diary.nil?
+    %span.error 
+      최근에 쓰여진 Diary가 없습니다.
+  - else
+    = @new_diary.body
+    = @new_diary.team.alias
+    %a.where{:href => '/teams/'+@new_diary.team.alias}
+      = 'Where => '+@new_diary.team.alias
 
-%h2#diaries&= 'My Diary list #It shd change in <a href="teams/asdf">adf</a>'
-- unless @user.diaries
-  - for diary in @user.diary
-    %p.diaries
-      = diary.body
-      %span.where
-        = diary.team.alias
+%h2#new_team_title 활동이 활발한 팀
+- if @update_team.nil?
+  최근 활동이 활발한 Team을 찾을수없습니다
 - else
-  %p.notice
-    You don't write any diary!
-%p#search
-  = link_to 'Search team', '/teams' 
+  %ul#new_team_list
+    - for team in @update_team
+      %li
+        %a{:href => '/teams/'+team.alias}
+          = team.alias
+%p
+  %a{:href => '/users/'+@user.alias+'/@'} 내가 쓴  Diary 보러가기

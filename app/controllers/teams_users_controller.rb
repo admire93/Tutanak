@@ -34,19 +34,17 @@ class TeamsUsersController < ApplicationController
 
   # GET /teams_users/1:/edit
   def edit
-    @teams_user = TeamsUser.find(params[:id])
+    @teams_user = TeamsUser.find(:all, :conditions => {:team_id => params[:id]})[0]
   end
-
   # POST /teams_users
   # POST /teams_users.xml
   def create
     @teams_user = TeamsUser.new(params[:teams_user])
     @teams_user.team_id = session[:team_id]
     @teams_user.user_id = session[:user_id]
-    @teams_user.status = 3 
     @team = Team.find_by_id(session[:team_id])
     @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
-    if @is_joined[0]
+    if @is_joined
       flash[:notice] = 'you already join this team'
       redirect_to :controller => 'teams', :action => @team.alias
     else
@@ -70,11 +68,14 @@ class TeamsUsersController < ApplicationController
   # PUT /teams_users/1
   # PUT /teams_users/1.xml
   def update
-    @teams_user = TeamsUser.find(:all, :conditions => {:user_id =>params[:user_id], :team_id => params[:team_id]})
+    @teams_user = TeamsUser.find(:all,
+                                 :conditions => {:team_id =>params[:id],
+                                                 :user_id =>params[:user_id]
+                                                })[0]
     respond_to do |format|
       if @teams_user.update_attributes(params[:teams_user])
         flash[:notice] = 'TeamsUser successfully updated'
-        format.html { redirect_to(@teams_user) }
+        format.html { redirect_to :controller => 'teams', :action => Team.find(params[:id]).alias}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

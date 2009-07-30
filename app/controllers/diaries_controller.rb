@@ -2,9 +2,13 @@ class DiariesController < ApplicationController
   # GET /diaries
   # GET /diaries.xml
   def index
-    @diaries = User.find_by_alias(params[:user_id])
-    @diaries = @diaries.diaries.find(:all, :order => 'created_at DESC')
-
+    @find = if user = User.find_by_alias(params[:user_id])
+              user
+            else
+              Team.find_by_alias(params[:team_id])
+            end
+    @diaries = @find.diaries.find(:all, :order => 'created_at DESC')
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @diaries }
@@ -32,13 +36,11 @@ class DiariesController < ApplicationController
   # GET /diaries/new.xml
   def new
     @diary = Diary.new
-    @env = request.env.inspect
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @diary }
     end
   end
-
   # GET /diaries/1/edit
   def edit
     @diary = Diary.find(params[:id])
@@ -50,7 +52,6 @@ class DiariesController < ApplicationController
     @diary = Diary.new(params[:diary])
     @diary.user_id = session[:user_id]
     @diary.team_id = session[:team_id]
-		@team = Team.find_by_id(session[:team_id])
     respond_to do |format|
       if @diary.save
         flash[:notice] = 'Diary was successfully created.'

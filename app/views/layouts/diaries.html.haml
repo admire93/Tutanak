@@ -1,0 +1,17 @@
+!!! 1.0 Strict
+%html
+  %head
+    %meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    %title  Main : #{controller.action_name}
+    = stylesheet_link_tag 'scaffold'
+  %body
+    - if flash[:notice]
+      %p(style="color:green")
+        = flash[:notice]
+    - if session[:user_id]
+      %p#toolbar 
+        = User.find(session[:user_id]).alias
+        %a(href="/main/logout")
+          logout 
+
+    = yield
