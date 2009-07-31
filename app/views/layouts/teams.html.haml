@@ -8,7 +8,8 @@
     - if flash[:notice]
       %p(style="color:green")
         = flash[:notice]
-    %p#toolbar 
-      = User.find(session[:user_id]).alias
+    %p#toolbar
+      %a{:href => '/users/'+User.find(session[:user_id]).alias}
+        = User.find(session[:user_id]).alias
       %a(href="/main/logout") logout
     = yield
