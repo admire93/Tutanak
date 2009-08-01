@@ -2,26 +2,36 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.xml
   def index
-    @user = User.find_by_alias(params[:user_id])
-    @teams = @user.team
+    @teams = if @user = User.find_by_alias(params[:user_id])
+               @user.team
+             else 
+               nil
+             end
     unless session[:user_id] 
 			redirect_to :controller => 'main', :action => 'login'
 		end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @teams }
+    if @teams
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @teams }
+      end
+    else
+      @teams = User.find(session[:user_id]).team
     end
   end
 
   # GET /teams/1
   # GET /teams/1.xml
   def show
-    @team = Team.find_by_alias(params[:id])
-    session[:team_id] = @team.id
-    @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
-	  respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @team }
+    if @team = Team.find_by_alias(params[:id])
+      session[:team_id] = @team.id
+      @is_joined = Team.is_user_join? session[:user_id], session[:team_id]
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @team }
+      end
+    else
+      render :file => '/../../public/404.html', :status => 404
     end
   end
 

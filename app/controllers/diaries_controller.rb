@@ -23,7 +23,7 @@ class DiariesController < ApplicationController
       @diaries = @diaries.find(:all, :conditions => {:team_id => @team.id},
                               :order => 'created_at DESC')
     else
-      flash[:notice] = 'You type wrong team name' 
+      flash[:notice] = '잘못된 Team alias를 입력하셨습니다' 
       @diaries = '' 
     end
     respond_to do |format|

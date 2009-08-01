@@ -4,13 +4,13 @@
   = @team.description
   Welcome to the
   = @team.alias
-%a{:href => '/teams/'+@team.alias+'/@'} Team에 쓰여진 Diary 보기
 - case (@is_joined)
   - when false:
     - form_tag '/teams_users' do
       = submit_tag 'Join'
 
   - when true:
+    %a{:href => '/teams/'+@team.alias+'/@'} Team에 쓰여진 Diary 보기
     %a{:href => '/teams/'+@team.alias+'/@/new'} write
     %ul
       - for user in @team.user

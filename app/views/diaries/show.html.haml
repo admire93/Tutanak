@@ -10,8 +10,9 @@
       %a.where{:href => '/teams/'+diary.team.alias}
         = 'Where => '+diary.team.alias
 - else
-  %p 쓰여진 글이없습니다
-- if User.find(session[:user_id]).team[0]
+  - if Team.find_by_alias(params[:id])
+    %p 쓰여진 글이없습니다
+- if User.find(session[:user_id]).team.find_by_alias(params[:id])
   %a{:href => '/teams/'+params[:id]} team...
 - else
-  %a{:href => '/users/'+params[:id]} my page ...
+  %a{:href => '/users/'+User.find(session[:user_id]).alias} my page ...

@@ -4,7 +4,7 @@
     %span.error 
       최근에 쓰여진 Diary가 없습니다.
   - else
-    = @new_diary.body
+    = markdown(@new_diary.body)
     = @new_diary.team.alias
     %a.where{:href => '/teams/'+@new_diary.team.alias}
       = 'Where => '+@new_diary.team.alias
