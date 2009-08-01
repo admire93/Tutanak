@@ -2,7 +2,7 @@
   %h2='These Diaries written by '+params[:user_id]+' in '+params[:id] 
   - for diary in @diaries
     %p
-      = diary.body
+      = markdown(diary.body)
       = diary.created_at
       %a.who{:href =>'users/'+diary.user.alias}
         Written by
@@ -11,5 +11,7 @@
         = 'Where => '+diary.team.alias
 - else
   %p 쓰여진 글이없습니다
-
-%a{:href => '/teams/'+params[:id]} team...
+- if User.find(session[:user_id]).team[0]
+  %a{:href => '/teams/'+params[:id]} team...
+- else
+  %a{:href => '/users/'+params[:id]} my page ...

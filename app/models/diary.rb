@@ -1,5 +1,4 @@
 class Diary < ActiveRecord::Base
-  has_many :comments
 	belongs_to :user
   belongs_to :team
 	validates_presence_of :body

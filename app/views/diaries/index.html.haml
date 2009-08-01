@@ -3,7 +3,7 @@
 - unless @diaries.empty?
   - for diary in @diaries
     %p
-      = diary.body
+      = markdown(diary.body)
       = diary.created_at
       %a.who{:href =>'/users/'+diary.user.alias}
         Written by
@@ -13,5 +13,8 @@
 - else
   %p#notice
     쓰여진 Diary가 존재하지않습니다 
-    %a.team_search{:href => '/teams/'+@find.alias}
-      Team으로 돌아가기
+    - if User.find(session[:user_id]).team[0]  
+      %a{:href => '/teams/'+@find.alias}
+        Team으로 돌아가기
+    - else
+      %a{:href => 'rusers/'+@findralias} page ...

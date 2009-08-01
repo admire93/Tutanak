@@ -8,8 +8,22 @@
     - if flash[:notice]
       %p(style="color:green")
         = flash[:notice]
-    %p#toolbar
-      %a{:href => '/users/'+User.find(session[:user_id]).alias}
-        = User.find(session[:user_id]).alias
-      %a(href="/main/logout") logout
+    - if session[:user_id]
+      %ul#toolbar
+        %li
+          - form_tag '/teams/search' do
+            =text_field 'search', ''
+            =submit_tag 'Search'
+        %li
+          %a{:href => '/users/'+User.find(session[:user_id]).alias}
+            myPage
+        %li
+          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/@'}
+            myDiaries
+        %li
+          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/*'}
+            myTeam
+        %li
+          = User.find(session[:user_id]).alias
+          %a(href="/main/logout") logout
     = yield
