@@ -1,15 +1,21 @@
-%h1 Diaries 
-
 - unless @diaries.empty?
   - for diary in @diaries
-    %p
+    .diaries_view 
+      %p.when
+        %span.month
+          = diary.created_at.month 
+        & .
+        = diary.created_at.day
+        & -
+        = diary.created_at.year
       = markdown(diary.body)
-      = diary.created_at
-      %a.who{:href =>'/users/'+diary.user.alias}
-        Written by
-        = diary.user.alias
-      %a.where{:href => '/teams/'+diary.team.alias}
-        = 'Where => '+diary.team.alias
+      %p.info
+        Author:
+        %a{:href=>'/users/'+diary.user.alias}
+          = diary.user.alias
+        Team:
+        %a{:href=>'/teams/'+diary.team.alias}
+          = diary.team.alias
 - else
   %p#notice
     쓰여진 Diary가 존재하지않습니다 

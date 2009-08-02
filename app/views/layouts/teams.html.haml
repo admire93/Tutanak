@@ -2,28 +2,31 @@
 %html
   %head
     %meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
-    %title  Main : #{controller.action_name}
-    = stylesheet_link_tag 'scaffold'
+    %title  Team : #{controller.action_name}
+    %style(type="text/css")
+      @import url('/public/stylesheets/team.css'); 
   %body
-    - if flash[:notice]
-      %p(style="color:green")
-        = flash[:notice]
-    - if session[:user_id]
-      %ul#toolbar
-        %li
-          - form_tag '/teams/search' do
-            =text_field 'search', ''
-            =submit_tag 'Search'
-        %li
-          %a{:href => '/users/'+User.find(session[:user_id]).alias}
-            myPage
-        %li
-          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/@'}
-            myDiaries
-        %li
-          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/*'}
-            myTeam
-        %li
-          = User.find(session[:user_id]).alias
-          %a(href="/main/logout") logout
-    = yield
+    .toolbar
+      %h1.typo Welcome to tutanak
+      - form_tag '/teams/search' do
+        =text_field 'search', ''
+        =submit_tag 'Search'
+      %p.user_info
+        = User.find(session[:user_id]).alias
+        %a(href="/main/logout") logout
+      %ul
+        %li.diaries
+          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/@/'}
+            Diaries
+        %li.teams
+          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/*'}  
+            Teams
+        %li.preference 
+          %a{:href => '/users/'+User.find(session[:user_id]).alias+'/edit'}  
+            Preference
+    .body
+      - if flash[:notice]
+        %p.flash
+          = flash[:notice]
+
+      = yield

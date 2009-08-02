@@ -1,21 +1,15 @@
 %h1 Edit Users
-
 - form_for(@user) do |f|
   = f.error_messages
-
   %dl
-	%dt= f.label :email
-	%dd= :email
-	
-	%dt= f.label :password
-	%dd= f.password_field :password_hash   
-
+    %dt= f.label :password
+    %dd= f.password_field :password, :value => ''
+                       
     %dt= f.label :alias
-	%dd= f.field :alias
-
-	%dt= f.label :url
-	%dd= f.field :url
-
-=link_to 'Show', @users
-=link_to 'Back', users_path
+    %dd= f.text_field :alias
+                     
+    %dt= f.label :url
+    %dd= f.text_field :url
+                                            
+    %p= f.submit 'Edit'
 

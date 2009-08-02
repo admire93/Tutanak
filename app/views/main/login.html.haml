@@ -1,17 +1,11 @@
-- unless flash[:notice].to_s.empty?
-  %p#error_message
-    = flash[:notice]
+%img(src="/public/images/logo.gif" alt="leave your tutanak")
 
 - form_tag do
-  %dl
-    %dt Email	
-    %dd= text_field_tag :email, params[:email]
-    %dt Password
-    %dd= password_field_tag :password, params[:password]
-  %p
-    = submit_tag 'login'
-    %a(href="/users/new")
-      sign Up 
+  = text_field_tag :email, params[:email], :class => 'field'
+  = password_field_tag :password, params[:password], :class => 'field'
+  <input type="submit" name="submit" class="submit_button" value="login" />
 
 
+
+  
 

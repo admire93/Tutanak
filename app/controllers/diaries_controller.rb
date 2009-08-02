@@ -7,7 +7,14 @@ class DiariesController < ApplicationController
             else
               Team.find_by_alias(params[:team_id])
             end
-    @diaries = @find.diaries.find(:all, :order => 'created_at DESC')
+    @page = if params[:page] == 0 || params[:page].nil?
+              params[:page] = 1
+            elsif params[:page].grep(/[^0-9]/)
+              params[:page] = 1
+            else
+              params[:page]
+            end
+    @diaries = @find.diaries.find(:all, :order => 'created_at DESC', :limit => @page*5)
     
     respond_to do |format|
       format.html # index.html.erb

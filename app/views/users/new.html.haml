@@ -1,21 +1,20 @@
-%h2 New User 
-
+%h2 New User
+ 
 - form_for(@user) do |f|
   = f.error_messages
   %dl
     %dt= f.label :email
     %dd= f.text_field :email
-
+           
     %dt= f.label :password
     %dd= f.password_field :password, :value => ''
-
+                       
     %dt= f.label :alias
     %dd= f.text_field :alias
-    
-    %dt= f.label :url	
+                     
+    %dt= f.label :url
     %dd= f.text_field :url
+                                            
+    %p= recaptcha_tags
+    %p= f.submit 'Create'
 
-  %p= recaptcha_tags
-  %p= f.submit 'Create'
-
-= link_to 'Back'

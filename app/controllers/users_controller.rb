@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_alias(params[:id])
     @new_diary = @user.diaries.find(:all, :order => "created_at DESC")[0]
+    @attachment = @user.attachment
     @update_team = []    
     for team in @user.team
       unless team.diaries.find(:last).nil?
@@ -49,55 +50,17 @@ class UsersController < ApplicationController
 			return
 		end
     @user = User.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
   end
-
-  # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by_alias(params[:id])
   end
-
-  # POST /users
-  # POST /users.xml
-  def create
-    @user = User.new(params[:user])
-    respond_to do |format|
-      if verify_recaptcha(@user)
-        if @user.save
-          session[:user_id] = @user.id
-          format.html { redirect_to :action => @user.alias}
-          format.xml  { render :xml => @user, :status => :created, 
-                               :location => @user 
-                      }
-        else
-          flash[:notice] = 'faild access'
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @user.errors, 
-                               :status => :unprocessable_entity
-                      }
-        end
-      else
-        flash[:notice] = 'There was an error with the recaptcha'
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, 
-                             :status => :unprocessable_entity 
-                    }
-      end
-    end
-  end
-
-  # PUT /users/1
-  # PUT /users/1.xml
   def update
-    @users = User.find(params[:id])
+    @users = User.find_by_alias(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'Users was successfully updated.'
-        format.html { redirect_to(@user) }
+        format.html { redirect_to '/1' }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

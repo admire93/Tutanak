@@ -3,8 +3,25 @@
   %head
     %meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
     %title  Main : #{controller.action_name}
-    = stylesheet_link_tag 'scaffold'
+    %style(type="text/css")
+      @import url('/public/stylesheets/main.css');
   %body
-    %p(style="color: green") 
-      = flash[:notice]
-    = yield
+    
+    .toolbar
+      %h1.typo Welcome to tutanak
+      - unless session[:user_id]
+        - form_tag '/main/login' do
+          = text_field_tag 'email'
+          = password_field_tag 'password'
+          = submit_tag 'login'
+      %ul
+        %li.diaries Diaries
+        %li.teams Teams
+        %li.preference Preference
+    .body
+      - if flash[:notice]
+        %p.flash 
+          = flash[:notice]
+      = yield
+    .foot
+      

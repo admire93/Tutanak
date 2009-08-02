@@ -1,4 +1,5 @@
 class MainController < ApplicationController
+  layout 'main'
   def index
 		if session[:user_id]
 		  redirect_to :controller => 'users', :action => User.find(session[:user_id]).alias

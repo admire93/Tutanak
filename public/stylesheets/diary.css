@@ -1,0 +1,107 @@
+*{
+  margin:0; padding:0;
+}
+
+.flash{
+  width: 500px; height: 150px;
+  border: dotted 2px #FF0000;
+  color: #DD0000;
+}
+div.toolbar{
+  width: 100%; height: 100px;
+  position: fixed;
+  background-color: #434343
+}
+div.toolbar h1{
+  display:block;
+  width: 150px; height: 50px;
+  text-indent: -5000em;
+  background: #434343 url('/public/images/toolbar.gif') no-repeat top left;
+  float: left;
+}
+div.toolbar p.user_info{
+  float:right;
+  width: 150px; height: 20px;
+  margin-top: 18px;
+  color: #FFFFFF; 
+  font-size: large;
+}
+
+div.toolbar form{
+  margin-top: 15px;
+  float: right;
+}
+div.toolbar ul{
+  width: 100%; height: 40px;
+  margin: 60px 0 0 0 ; padding: 0;
+  background-color: #767676;
+  clear: both;
+}
+div.toolbar ul li{
+  float: left;
+  margin: 5px 0 0 30px;
+  height: 30px;
+  list-style: none;
+  text-indent: -500em;
+}
+li.diaries{
+  width: 110px;
+  background: #767676 url('/public/images/menu.gif') no-repeat -1px 0px;
+}
+li.diaries a{
+  display: block;
+  width: 110px; height: 30px;
+}
+li.teams{
+  width: 100px;
+  background: #767676 url('/public/images/menu.gif') no-repeat -111px 0px;
+}
+li.teams a{
+  display: block;
+  width: 100px; height: 30px;
+}
+li.preference{
+  width: 170px;
+  background: #767676 url('/public/images/menu.gif') no-repeat -211px 0px;
+}
+li.preference a{
+  display: block;
+  width: 170px; height: 30px;
+}
+div.body{
+  margin-top: 120px;
+  float:left;
+}
+div.body form{
+  width: 900px;
+  height: 200px;
+}
+div.body form textarea{
+  width: 750px;
+  height: 150px;
+  float: left;
+}
+div.body form input{
+  width: 100px; height: 100px;
+  float: right
+}
+.diaries_view{
+  width: 800px;
+  margin-top: 20px; 
+  border: dashed 3px #434343;
+}
+.when{
+  width: 200px;
+  border-bottom: solid 2px #767676;
+  margin-bottom: 10px;
+}
+.month{
+  font-size: x-large;
+  color: green;
+}
+.info{
+  border-top: solid 2px #767676;
+  margin-top: 10px;
+}
+.footer{
+}

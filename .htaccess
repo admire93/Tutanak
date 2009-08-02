@@ -1,4 +1,4 @@
 PassengerEnabled On
-PassengerAppRoot /home/tutanak/wwwroot
+PassengerAppRoot /home/tutanak/wwwroot/
 RailsEnv development 
 RailsBaseURI /
